@@ -1,0 +1,150 @@
+﻿@model IBQRAttendance.Models.GlobalClass
+
+@{
+    ViewBag.Title = "Generate QR COde";
+}
+<style type="text/css">
+    body {
+        background-image: url('/Img/280668513_682904199485150_8543926658523506720_n.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+
+@using (Html.BeginForm("Register", "QRCode", FormMethod.Post))
+{
+    <div class="container" style="background-color:azure">
+        <h2>Register</h2>
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div id="leftAlign">
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.users.department, new { @class = "control-label col-md-2" })
+                    @Html.DropDownListFor(model => model.users.department,
+                     EnumHelper.GetSelectList(typeof(IBQRAttendance.Models.Department)), "-- Please Select --",
+                     new { @class = "form-control", @id = "department" })
+                </div>
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.users.level, new { @class = "control-label col-md-2" })
+                    @Html.DropDownListFor(model => model.users.level,
+                     EnumHelper.GetSelectList(typeof(IBQRAttendance.Models.Level)), "-- Please Select --",
+                     new { @class = "form-control", @id = "level" })
+                </div>
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.users.FIRSTNAME, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.users.FIRSTNAME, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.users.FIRSTNAME, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.users.LASTNAME, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.users.LASTNAME, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.users.LASTNAME, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.users.MIDDLENAME, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.users.MIDDLENAME, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.users.MIDDLENAME, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.users.EMAIL, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.users.EMAIL, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.users.EMAIL, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.users.ADDRESS, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.users.ADDRESS, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.users.ADDRESS, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.users.PHONENUMBER, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.users.PHONENUMBER, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.users.PHONENUMBER, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <input type="submit" value="Register" class="btn btn-success" />
+
+            </div>
+            <div id="rightAlign">
+                <span style="color:red; ">@ViewBag.Message </span>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.qRCodeModel.QRCodeText, new { @class = "control-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.qRCodeModel.QRCodeText, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.qRCodeModel.QRCodeText, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.qRCodeModel.QRCodeImagePath, new { @class = "control-label" })
+                    @Html.ValidationMessageFor(model => model.qRCodeModel.QRCodeImagePath, "", new { @class = "text-danger" })
+                    <div class="col-md-10">
+                        @if (Model != null && !String.IsNullOrEmpty(Model.qRCodeModel.QRCodeImagePath))
+                        {
+                            <img src="@Url.Content(Model.qRCodeModel.QRCodeImagePath)" alt="Image" />
+                            @Html.HiddenFor(model => model.qRCodeModel.QRCodeImagePath)
+                            @Html.HiddenFor(model => model.qRCodeModel.QRValue)
+                        }
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Generate QR" formaction=@Url.Action("Generate") formmethod="POST" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @*<div>
+                @Html.ActionLink("Read QR Code", "Read")
+            </div>*@
+    </div>
+}
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+<style>
+    #rightAlign {
+        float: right;
+        padding: 20px;
+        height: 80%;
+        width: 30%;
+    }
+
+    #leftAlign {
+        float: left;
+        padding: 20px;
+        width: 70%;
+        height: 80%;
+    }
+
+    footer {
+        padding: 10px;
+        text-align: center;
+        color: white;
+    }
+</style>
