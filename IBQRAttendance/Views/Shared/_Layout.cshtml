@@ -13,18 +13,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Register", "Index", "QRCode")</li>
-                    <li>@Html.ActionLink("Attendance", "Attendance", "QRCode")</li>
-                    <li>@Html.ActionLink("List of Regitered", "RegisteredList", "QRCode")</li>
+                    <li>@Html.ActionLink("Register Driver", "AddDriversInformation", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
         <footer style="background-color:azure">
-            <p style="color:black">&copy; @DateTime.Now.Year - Attendance Portal</p>
+            <p style="color:black">&copy; @DateTime.Now.Year - Waste Management apps</p>
         </footer>
     </div>
 

@@ -1,0 +1,342 @@
+﻿@model IBQRAttendance.Models.Users
+
+@{
+    ViewBag.Title = "Add Drivers Information";
+}
+
+<h2>Add Drivers Information</h2>
+<style>
+
+
+    /* import google font family */
+    @@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,600;1,600&display=swap');
+    /* selecting everything */
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Open Sans', sans-serif, helvetica, Arial;
+        font-weight: 400;
+        font-size: 14px;
+        color: black;
+        /* body background image */
+        background-attachment: fixed;
+        background-size: cover;
+        /*background-image: url('../../Images/Lian_Run1.png');*/
+        background-repeat: no-repeat;
+    }
+
+    .container {
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    #contact {
+        background-color: rgba(203, 220, 203, 0.7);
+        padding: 20px;
+        margin: 50px 0;
+    }
+
+        #contact input, button {
+            font: 400 15px 'Open Sans', sans-serif, helvetica, Arial;
+        }
+
+        #contact h1 {
+            font-size: 35px;
+            font-weight: bold;
+            text-align: center;
+            color: blue;
+        }
+
+        #contact h3 {
+            margin: 5px 0px 15px;
+            text-align: center;
+        }
+
+    .row {
+        display: flex;
+        width: 100% !important;
+        padding: 20px 0px;
+    }
+
+        .row .column {
+            margin: 0px 20px;
+            width: 50%;
+        }
+
+    fieldset {
+        border: medium none !important;
+        margin: 0 0 10px;
+        min-width: 100%;
+        width: 100%;
+    }
+
+    #contact input {
+        width: 100%;
+        border: 1px solid rgb(150, 150, 150);
+        background-color: white;
+        padding: 10px;
+        margin: 5px 0;
+    }
+
+    input[type = "radio"] {
+        width: 10% !important;
+    }
+
+    #contact .row .radio {
+        border: 1px solid rgb(150, 150, 150);
+        background-color: white;
+        margin: 7px 0 10px;
+        padding: 5px;
+    }
+
+    #contact .row .idCard {
+        display: flex;
+        height: 45px !important;
+        margin: 5px 0;
+    }
+
+        #contact .row .idCard :first-child {
+            width: 80px;
+        }
+
+        #contact .row .idCard :last-child {
+            width: 40px;
+        }
+
+    #contact .row #phone {
+        max-width: 100% !important;
+        padding-right: 80px;
+    }
+
+    #contact input:hover {
+        transition: border-color 0.3s ease-in-out;
+        border: 1px solid rgb(68, 68, 68);
+    }
+
+    #contact button {
+        outline: none;
+        border: none;
+        background-color: blue;
+        color: white;
+        margin: 0 0 5px 40%;
+        padding: 10px;
+        font-size: 17px;
+        width: 150px;
+    }
+
+
+        #contact button:hover {
+            background-color: rgba(0, 0, 255, 0.8);
+        }
+
+    #contact input:focus {
+        outline: 0;
+        border: 1px solid red;
+    }
+
+    /* mobile responsive mode */
+    @@media screen and (max-width: 580px) {
+        .row {
+            flex-direction: column;
+        }
+
+            .row .column {
+                width: 90% !important;
+            }
+
+        #contact .row #phone {
+            padding-right: 180px;
+        }
+    }
+
+    .TermsAccepted {
+        max-width: 30px;
+    }
+
+    .swal2-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: medium
+    }
+
+    .swal2-popup {
+        font-size: 1.6rem !important;
+        font-family: Georgia, serif;
+    }
+
+    .modal {
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 90%; /* Full height */
+    }
+
+    @@media only screen and (max-width: 700px) {
+        .modal-content {
+            width: 100%;
+        }
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Document</title>
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="column">
+                <div class="form-horizontal">
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FIRSTNAME)
+                        @Html.TextBoxFor(m => m.FIRSTNAME, "", new { @class = "form-control", @placeholder = "First name", @required = "", @id = "FIRSTNAME" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LASTNAME)
+                        @Html.TextBoxFor(m => m.LASTNAME, "", new { @class = "form-control", @placeholder = "Last name", @required = "", @id = "LASTNAME" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MIDDLENAME)
+                        @Html.TextBoxFor(m => m.MIDDLENAME, "", new { @class = "form-control", @placeholder = "Middle name", @required = "", @id = "MIDDLENAME" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Cluster", "Cluster")
+                        @Html.DropDownList("Cluster", new SelectList(ViewBag.data, "ClusterId", "Place"))
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-horizontal">
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.USERNAME)
+                        @Html.TextBoxFor(m => m.USERNAME, "", new { @class = "form-control", @placeholder = "Username", @required = "", @id = "USERNAME" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PASSWORD)
+                        @Html.TextBoxFor(m => m.PASSWORD, "", new { @class = "form-control", @placeholder = "Password", @required = "", @id = "PASSWORD" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PHONENUMBER)
+                        @Html.TextBoxFor(m => m.PHONENUMBER, "", new { @class = "form-control", @type = "tel", @placeholder = "+639562447822", @required = "", @id = "PHONENUMBER" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ADDRESS)
+                        @Html.TextAreaFor(m => m.ADDRESS, new { @class = "form-control", @placeholder = "Address ", @required = "", @id = "ADDRESS" })
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="Create" onclick="Register()" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script>
+
+    function ValidateEmail(email) {
+
+        if (/^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+            return (true)
+        }
+        return (false)
+    }
+    function validatePhoneNumber(input_str) {
+        var re = /^((09|\+639)|(|\d{2}|\d{3}))(|\s)(\d{9}|\d{7})$/gm; 
+        return re.test(input_str);
+    }
+    function Register() {
+        var Users = {};
+        var FIRSTNAME =   $("#FIRSTNAME").val();
+        var LASTNAME =    $("#LASTNAME").val();
+        var MIDDLENAME =  $("#MIDDLENAME").val();
+        var ADDRESS =     $("#ADDRESS").val();
+        var PHONENUMBER = $("#PHONENUMBER").val();
+        var USERNAME =    $("#USERNAME").val();
+        var PASSWORD =    $("#PASSWORD").val();
+        var Cluster =     $("#Cluster").val();
+
+
+        if (FIRSTNAME != '' && LASTNAME != '' && MIDDLENAME != '' && ADDRESS != '' && PHONENUMBER != '' && Cluster != 0 && PASSWORD != '' && USERNAME !='')
+        {
+            if (!validatePhoneNumber(PHONENUMBER)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter a valid phone number kindly refer on this pattern +639-562447822',
+                })
+                return
+            }
+
+            Users.FIRSTNAME = FIRSTNAME;
+            Users.LASTNAME = LASTNAME;
+            Users.MIDDLENAME = MIDDLENAME;
+            Users.ADDRESS = ADDRESS;
+            Users.PHONENUMBER = PHONENUMBER;
+            Users.CLUSTERID = Cluster;
+            Users.PASSWORD = PASSWORD;
+            Users.USERNAME = USERNAME;
+
+            console.log(Users);
+
+            $.ajax({
+                url: '/Home/RegisterDriver',
+                data: Users = Users,
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                   
+                    if (data) {
+                        Swal.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: '<h2>Register<h2>',
+                            html: '<p>Driver have been successfully register</p>',
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            }
+                        })
+                        clearInputs();
+                    }
+                }
+            });
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill all the necessary forms!',
+            })
+        }
+    }
+    function clearInputs() {
+        $("#FIRSTNAME").val('');
+        $("#LASTNAME").val('');
+        $("#MIDDLENAME").val('');
+        $("#ADDRESS").val('');
+        $("#PHONENUMBER").val('');
+        $("#USERNAME").val('');
+        $("#PASSWORD").val('');
+    }
+</script>

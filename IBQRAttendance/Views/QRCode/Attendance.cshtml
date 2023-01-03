@@ -4,24 +4,28 @@
 
 }
 <style type="text/css">
-    body {
-        background-image: url('/Img/280668513_682904199485150_8543926658523506720_n.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
+    @@media (min-width: 301px ) {
+        body {
+            background-image: url('/Img/280668513_682904199485150_8543926658523506720_n.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
     }
 </style>
 
-<h2>Attendance</h2>
-<div class="container" style="background-color:azure">
+
+<div class="container" style="background-color: azure; width: 100%;">
+    <h2>Attendance</h2>
     <br />
-    @*<div class="form-horizontal">
-            @Html.LabelFor(model => model.users.department, "Day Category")
-            @Html.DropDownListFor(model => model.users.department,
-             EnumHelper.GetSelectList(typeof(IBQRAttendance.Models.Department)), "-- Please Select --",
-             new { @class = "form-control", @id = "DayCategory", @required = "", @onchange = "getAttendanceList(this.value,id)" })
-            @Html.ValidationMessageFor(model => model.users.department, "", new { @class = "text-danger" })
-        </div>
-        <br />*@
     <div style="width:90%; margin:0 auto;">
         <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
             <thead>
